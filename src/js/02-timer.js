@@ -27,8 +27,8 @@ flatpickr(date, {
 }
 });
 
-const currentTime = new Date();
-console.log(currentTime);
+// const currentTime = new Date();
+// console.log(currentTime);
 
 
 
