@@ -1,25 +1,27 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 
-
-const date = document.querySelector('#datetime-picker');
+const dateInput = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]')
 const day = document.querySelector('[data-days]');
 const hour = document.querySelector('[data-hours]');
 const min = document.querySelector('[data-minutes]');
 const sec = document.querySelector('[data-seconds]');
 
+let timerId = null;
+
 startBtn.disabled = true;
 
-flatpickr(date, {
+const datePicker = flatpickr(dateInput, {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {      // запускається, коли календар закрито
       if (selectedDates[0] <= Date.now()) {
-        window.alert('Please choose a date in the future');
+        Notiflix.Notify.failure('Please choose a date in the future');
         startBtn.disabled = true;
       } else {
         startBtn.disabled = false;
@@ -27,13 +29,33 @@ flatpickr(date, {
 }
 });
 
-// const currentTime = new Date();
-// console.log(currentTime);
+startBtn.addEventListener('click', onStart);
 
+function onStart() {
+  timerId = setInterval(() => {
+    const currentDate = Date.now();  //визначаєм поточний час в мс
+    const selectedDate = new Date(datePicker.selectedDates[0]).getTime();  //обираємо дату яку обрав користувач, і виводимо в мс
+    const deltaTime = selectedDate - currentDate; //відоражає відлік таймера від обраної дати користувачем, до кінця таймера
+    startBtn.disabled = true;
+     
+    if (deltaTime < 0) {
+      clearInterval(timerId);   //зупиняємо таймер коли добігає 00сек
+      Notiflix.Notify.success('Countdown finished!');  
+      return;
+    }
+    const { days, hours, minutes, seconds } = convertMs(deltaTime); //бере значення deltaTime і повертає його в форматі days, hours, minutes, seconds
 
-
-
-
+    day.textContent = addLeadingZero(days);
+    hour.textContent = addLeadingZero(hours);
+    min.textContent = addLeadingZero(minutes);
+    sec.textContent = addLeadingZero(seconds);
+  }
+    , 1000)
+  
+  function addLeadingZero(value) {  // форматуємо в подвійне значення 00
+  return `${value}`.padStart(2, '0');
+}
+};
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time
@@ -53,9 +75,4 @@ function convertMs(ms) {
   
     return { days, hours, minutes, seconds };
   }
-
-  console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-  console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-  console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-
 

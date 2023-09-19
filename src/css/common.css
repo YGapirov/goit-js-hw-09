@@ -16,3 +16,27 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.timer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.value {
+
+  font-family: 'Roboto Mono', monospace;
+  font-size: 30px;
+  color: gray;
+
+}
+
+.value:not([data-seconds])::after {
+  content: ':'
+}
+
+.label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  display: block;
+}
