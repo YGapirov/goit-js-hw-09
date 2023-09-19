@@ -21,7 +21,7 @@ const datePicker = flatpickr(dateInput, {
     minuteIncrement: 1,
     onClose(selectedDates) {      // запускається, коли календар закрито
       if (selectedDates[0] <= Date.now()) {
-        Notiflix.Notify.failure('Please choose a date in the future');
+        Notiflix.Notify.failure('Please choose a date in the future', {position: 'center-top', distance: '100px', });
         startBtn.disabled = true;
       } else {
         startBtn.disabled = false;
@@ -40,7 +40,7 @@ function onStart() {
      
     if (deltaTime < 0) {
       clearInterval(timerId);   //зупиняємо таймер коли добігає 00сек
-      Notiflix.Notify.success('Countdown finished!');  
+      Notiflix.Notify.success('Countdown finished!', {position: 'center-top',distance: '100px'});  
       return;
     }
     const { days, hours, minutes, seconds } = convertMs(deltaTime); //бере значення deltaTime і повертає його в форматі days, hours, minutes, seconds
