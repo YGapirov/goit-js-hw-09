@@ -38,43 +38,6 @@ function createPromise(position, delay) {
   };
 
 
-//   const form = document.querySelector('.form');
-
-// form.addEventListener('submit', onSubmitForm);
-
-// function onSubmitForm(evt) {
-//   evt.preventDefault();
-
-//   const initialDelay = Number(form.delay.value); // Отримуємо числове значення delay введене користувачем
-//   const amount = Number(form.amount.value);
-//   const step = Number(form.step.value);
-
-//   for (let i = 1; i <= amount; i += 1) {
-//     const currentDelay = initialDelay + (i - 1) * step; // Обчислюємо поточну затримку
-//     createPromise(i, currentDelay)
-//       .then(({ position, delay }) => {
-//         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//       })
-//       .catch(({ position, delay }) => {
-//         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//       });
-//   }
-// }
-
-// function createPromise(position, delay) {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       const shouldResolve = Math.random() > 0.3;
-//       if (shouldResolve) {
-//         resolve({ position, delay }); // Виконати обіцянку
-//       } else {
-//         reject({ position, delay }); // Відхилити обіцянку
-//       }
-//     }, delay);
-//   });
-// }
-
-
 
 
 
