@@ -32,11 +32,13 @@ const datePicker = flatpickr(dateInput, {
 startBtn.addEventListener('click', onStart);
 
 function onStart() {
+  
   timerId = setInterval(() => {
     const currentDate = Date.now();  //визначаєм поточний час в мс
     const selectedDate = new Date(datePicker.selectedDates[0]).getTime();  //обираємо дату яку обрав користувач, і виводимо в мс
     const deltaTime = selectedDate - currentDate; //відоражає відлік таймера від обраної дати користувачем, до кінця таймера
     startBtn.disabled = true;
+    dateInput.disabled = true;
      
     if (deltaTime < 0) {
       clearInterval(timerId);   //зупиняємо таймер коли добігає 00сек
