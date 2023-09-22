@@ -39,6 +39,7 @@ function onStart() {
     const deltaTime = selectedDate - currentDate; //відоражає відлік таймера від обраної дати користувачем, до кінця таймера
     startBtn.disabled = true;
     dateInput.disabled = true;
+    resetBtn.disabled = false;
      
     if (deltaTime < 0) {
       clearInterval(timerId);   //зупиняємо таймер коли добігає 00сек
@@ -78,3 +79,21 @@ function convertMs(ms) {
     return { days, hours, minutes, seconds };
   }
 
+const resetBtn = document.querySelector('[data-reset]');
+
+
+resetBtn.disabled = true;
+
+resetBtn.addEventListener('click', onReset);
+
+function onReset() {
+  clearInterval(timerId); 
+  Notiflix.Notify.info('Please choose a new date', {position: 'center-top',distance: '100px'});
+  day.textContent = '00';
+  hour.textContent = '00';
+  min.textContent = '00';
+  sec.textContent = '00';
+  dateInput.disabled = false;
+  startBtn.disabled = true;
+  datePicker.clear(); // Очищаємо вибрану дату
+}
